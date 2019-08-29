@@ -126,9 +126,10 @@ td {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
 
-        var markers = [];
         var map;
         var bounds;
+        var points = []
+        var markers = []
 
         function toggleMarker(markers, bool) {
             for (i in markers) {
@@ -372,8 +373,12 @@ td {
             map.mapTypes.set('styled_map', googleMapStyles)
             map.setMapTypeId('styled_map');
 
-            axios.get('points.json').then(function(res) {
-                var points = res.data
+            var endpoint = 'https://raw.githubusercontent.com/estebansanti/fwd-ritz-map/master/points.json' || 'points.json'
+
+            axios.get(endpoint).then(function(res) {
+
+                points = res.data
+
                 bounds = new google.maps.LatLngBounds()
 
                 for (i in points) {
@@ -383,6 +388,7 @@ td {
 
                 map.fitBounds(bounds)
                 map.panToBounds(bounds) 
+
             })
 
         }
