@@ -3,7 +3,8 @@
         "title": "RICHLAND MALL",
         "address": "Mansfield, OH, USA",
         "lat": 40.75839,
-        "lng": -82.515447
+        "lng": -82.515447,
+        "keywords": "florida, miami, test, test"
     },
     {
         "map_id": "1",
