@@ -123,473 +123,12 @@ td {
         <div id="map"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
 
         var markers = [];
         var map;
         var bounds;
-
-        var points = [
-            {
-                "map_id": "1",
-                "marker_id": "2",
-                "title": "RICHLAND MALL",
-                "address": "Mansfield, OH, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Richland-Mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>2209 Richland Mall<br \/>Mansfield, OH 44906<\/p>\n<p><\/strong><a href=\"\/properties\/richland-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 40.75839,
-                "lng": -82.515447,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "3",
-                "title": "HONEY CREEK MALL",
-                "address": "Terre Haute, IN, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/honey-creek-mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>3401 South US Highway 41<br \/>Terre Haute, IN 47802<\/p>\n<p><\/strong><a href=\"\/properties\/honey-creek-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 39.470202,
-                "lng": -87.386702,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "4",
-                "title": "VICTORY VILLAGE",
-                "address": "Williamsburg, VA, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Victory-Village-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>6610 Mooretown Road<br \/>Williamsburg, VA 23188<\/p>\n<p><\/strong><a href=\"\/properties\/victory-village\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 37.270702,
-                "lng": -76.707457,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "5",
-                "title": "WALNUT HILL PLAZA",
-                "address": "Woonsocket, RI, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Wallnut-Hill-Plaza-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>1500 Diamond Hill Road<br \/>Woonsocket, RI 02895<\/p>\n<p><\/strong><a href=\"\/properties\/walnut-hill-plaza\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 42.002876,
-                "lng": -71.514784,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "6",
-                "title": "FURNITURE MATRESSES & MORE AT BANGOR MALL",
-                "address": "Bangor, ME, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Banger-Mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>561 Stillwater Avenue<br \/>Bangor, ME 04401<\/p>\n<p><\/strong><a href=\"\/properties\/furniture-mattresses-more-at-bangor-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 44.801613,
-                "lng": -68.771226,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "7",
-                "title": "RE-SALE AMERICA AT LAKELAND SQUARE MALL",
-                "address": "Lakeland, FL, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Lakeland-Square-Mall-3.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>3800 U.S. 98 North<br \/>Lakeland, FL 33809<\/p>\n<p><\/strong><a href=\"\/properties\/re-sale-america-at-lakeland-square-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 28.039465,
-                "lng": -81.949804,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "8",
-                "title": "FORMER MACY'S BOX AT GREAT NORTHERN MALL",
-                "address": "Clay, NY, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Great-Northern-Mall-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>4081 NY State Route 31<br \/>Clay, NY 10341<\/p>\n<p><\/strong><a href=\"\/properties\/former-macys-box-at-great-northern-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 43.185681,
-                "lng": -76.171755,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-            {
-                "map_id": "1",
-                "marker_id": "9",
-                "title": "FORMER MACY'S BOX AT WASHINGTON CROWN CENTER",
-                "address": "Washington, PA, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Washington-Crown-Center.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>1500 West Chestnut Street<br \/>Washington, PA 15301<\/p>\n<p><\/strong><a href=\"\/properties\/former-macys-box-at-washington-crown-center\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 40.159645,
-                "lng": -80.276444,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "10",
-                "title": "FORMER MACY'S BOX AT LAKEVIEW SQUARE MALL",
-                "address": "Battle Creek, MI, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/Lakeview-Square-Mall-3.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>5725 Beckley Road<br \/>Battle Creek, MI 49015<\/p>\n<p><\/strong><a href=\"\/properties\/former-macys-box-at-lakeview-square-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 42.321152,
-                "lng": -85.179714,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "11",
-                "title": "FORMER JCPENNEY BOX AT LAKEVIEW SQUARE MALL",
-                "address": "42.265058, -85.181586",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/coming-soon-1.png\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>5801 Beckley Road<br \/>Battle Creek, MI, 49015<\/p>\n<p><\/strong><a href=\"\/properties\/former-jcpenney-box-at-lakeview-square-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 42.263136,
-                "lng": -85.183899,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "12",
-                "title": "FORMER MACY'S BOX AT FORT STEUBEN MALL",
-                "address": "Steubenville, OH, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/fort-steuben-mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>100 Mall Dr.<br \/>Steubenville, OH 43952<\/p>\n<p><\/strong><a href=\"\/properties\/former-macys-box-at-fort-steuben-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 40.369791,
-                "lng": -80.633964,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "13",
-                "title": "FORMER MACY'S AT BIRCHWOOD MALL",
-                "address": "Fort Gratiot Township, MI, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/macys-birchwood-mall-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>4440 24th Avenue<br \/>Fort Gratiot, MI 48059<\/p>\n<p><\/strong><a href=\"\/properties\/former-macys-at-birchwood-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 43.038618,
-                "lng": -82.476888,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "14",
-                "title": "JCPENNEY BOX AT MIDLAND MALL",
-                "address": "Midland, MI, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenny-midland-mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>6840 Eastman Avenue<br \/>Midland, MI 48642<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-at-midland-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 43.615583,
-                "lng": -84.247212,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "15",
-                "title": "JCPENNEY BOX AT GLYNN PLACE MALL",
-                "address": "Brunswick, GA, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenney-glynn-place-mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>One Mall Blvd.<br \/>Brunswick, GA 31525<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-at-glynn-place-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 31.149953,
-                "lng": -81.491489,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "16",
-                "title": "JCPENNEY BOX AT THE PINES MALL",
-                "address": "Pine Bluff, AR, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/07\/jcp-pine-bluff-5.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>2901 Pines Mall Drive<br \/>Pine Bluff, AR 71601<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-at-the-pines-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 34.228431,
-                "lng": -92.003196,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "17",
-                "title": "JCPENNEY BOX NEARBY RIVER BIRCH MALL",
-                "address": "Sikeston, MO, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenney-sikeston-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>1215 South Main Street<br \/>Sikeston, MO 63801<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-nearby-river-birch-mall\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 36.876719,
-                "lng": -89.587858,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "18",
-                "title": "JCPENNEY BOX AT ALAMOSA",
-                "address": "Alamosa, CO, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/coming-soon-1.png\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>621 Main Street<br \/>Alamosa, CO 81101<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-at-alamosa\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 37.469449,
-                "lng": -105.870021,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "19",
-                "title": "JCPENNEY BOX AT YUCCA VALLEY",
-                "address": "Yucca Valley, CA, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/coming-soon-1.png\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>58000 29 Palms Highway<br \/>Yucca Valley, CA 92284<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-at-yucca-valley\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 34.114174,
-                "lng": -116.432235,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "20",
-                "title": "JCPENNEY BOX",
-                "address": "Bay City, MI, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenney-bay-city-mall-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>4129 East Wilder Road<br \/>Bay City, MI 48706<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-bay-city-michigan\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 43.594468,
-                "lng": -83.888865,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "21",
-                "title": "JCPENNEY BOX",
-                "address": "Bourbonnais, IL, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenney-bourbonnais-illinois-5.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>1600 North State Route 50<br \/>Bourbonnais, IL 60914<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-bourbonnais-illinois\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 41.176011,
-                "lng": -87.879523,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "22",
-                "title": "JCPENNEY BOX",
-                "address": "Lafayette, LA, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenney-lafayette-louisiana-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>5725 Johnston Street<br \/>Lafayette, LA 70503<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-lafayette-louisiana\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 30.22409,
-                "lng": -92.019843,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "23",
-                "title": "JCPENNEY BOX",
-                "address": "Shawnee, OK, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/jcpenney-shawnee-oklahoma-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>4901 N Kickapoo Ave.<br \/>Suite 400<br \/>Shawnee, OK 74804<\/p>\n<p><\/strong><a href=\"\/properties\/jcpenney-box-shawnee-oklahoma\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 35.327293,
-                "lng": -96.9253,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "24",
-                "title": "JCPENNEY BOX",
-                "address": "Paso Robles, CA, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/coming-soon-1.png\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>120 Niblick Road<br \/>Paso Robles, CA 93446<\/p>\n<p><\/strong><a href=\"https:\/\/ootb.lgd.io\/properties\/jcpenney-box-paso-robles-california\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 35.636876,
-                "lng": -120.654502,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "25",
-                "title": "MIAMI DESIGN DISTRICT REDEVELOPMENT",
-                "address": "25.814999983130235, -80.19164492118591",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/miami-design-district-development-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>4218 NE 2nd Avenue<br \/>Miami, FL 33137<\/p>\n<p><\/strong><a href=\"\/properties\/miami-design-district-redevelopment\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/07\/map-marker.png",
-                "linkd": "",
-                "lat": 25.815079,
-                "lng": -80.191686,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "26",
-                "title": "WHITE CAP LOFTS",
-                "address": "Chicago, IL, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/White-Cap-Lofts-Chicago-1.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>1819 N Major Avenue<br \/>Chicago, IL 60639<\/p>\n<p><\/strong><a href=\"\/properties\/white-cap-lofts\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 41.878114,
-                "lng": -87.629798,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            },
-             {
-                "map_id": "1",
-                "marker_id": "27",
-                "title": "MIAMI DESIGN DISTRICT MICRO RETAIL",
-                "address": "4300 Northeast 2nd Avenue, Miami, FL, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/miami-design-district-micro-retail-2.jpg\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>4300 NE 2nd Avenue<br \/>Miami, FL 33137<\/p>\n<p><\/strong><a href=\"\/properties\/miami-design-district-micro-retail\/\"><strong>LEASING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 25.815752,
-                "lng": -80.191585,
-                "anim": "0",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": []
-            },
-             {
-                "map_id": "1",
-                "marker_id": "28",
-                "title": "WYNWOOD - CUBE STUDIOS",
-                "address": "244 NW 35th St, Miami, FL 33127, USA",
-                "desc": "<table width=\"100%\" style=\"max-width:350px;margin:0 auto\">\n<tr>\n<td>\n<img src=\"https:\/\/ootb.lgd.io\/wp-content\/uploads\/2019\/08\/wynwood-cube-studios-3.png\" width=\"100%\" style=\"max-width:100px\" \/>\n<\/td>\n<td>\n<p>244 NW 35th Street<br \/>Miami, FL 33127<\/p>\n<p><\/strong><a href=\"\/properties\/miami-design-district-micro-retail\/\"><strong>BOOKING INFORMATION &rarr;<\/strong><\/p>\n<\/td><\/tr>\n<\/table>\n",
-                "pic": "",
-                "icon": "",
-                "linkd": "",
-                "lat": 25.8093594,
-                "lng": -80.2003482,
-                "anim": "2",
-                "retina": "0",
-                "category": "0",
-                "infoopen": "0",
-                "other_data": ["0"]
-            }
-        ]
 
         function toggleMarker(markers, bool) {
             for (i in markers) {
@@ -645,175 +184,74 @@ td {
             }
         }
 
-      function initMap() {
+        function addMarkerWithTimeout(point, timeout) {
+            window.setTimeout(function() {
 
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          maxZoom: 14,
-          disableDefaultUI: true, // a way to quickly hide all controls
-          center: { 
-            lat: 52.520, 
-            lng: 13.410
-           }
-        });
+                // var contentString = point.desc;
+                var contentString = `
+                    <div class="wpgmza_markerbox scrollFix">
+                        <p class="wpgmza_infowindow_title">${point.title}</p>
+                        <p class="wpgmza_infowindow_description">
+                        </p>
+                        <table style="max-width:350px;margin:0 auto" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="https://ootb.lgd.io/wp-content/uploads/2019/08/White-Cap-Lofts-Chicago-1.jpg" style="max-width:100px" width="100%">
+                                        </img>
+                                    </td>
+                                    <td>
+                                        <p>${point.address}</p>
+                                        <p>
+                                            <a href="https://ootb.lgd.io/properties/white-cap-lofts/">
+                                                <strong>
+                                                    LEASING INFORMATION →
+                                                </strong>
+                                            </a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
 
-        var googleMapStyles = new google.maps.StyledMapType([
-            {
-                featureType: "landscape",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    lightness: 65
-                }, {
-                    visibility: "on"
-                }]
-            }, {
-                featureType: "poi",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    lightness: 51
-                }, {
-                    visibility: "simplified"
-                }]
-            }, {
-                featureType: "road.highway",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    visibility: "simplified"
-                }]
-            }, {
-                featureType: "road.arterial",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    lightness: 30
-                }, {
-                    visibility: "on"
-                }]
-            }, {
-                featureType: "road.local",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    lightness: 40
-                }, {
-                    visibility: "on"
-                }]
-            }, {
-                featureType: "transit",
-                stylers: [{
-                    saturation: -100
-                }, {
-                    visibility: "simplified"
-                }]
-            }, {
-                featureType: "water",
-                elementType: "labels",
-                stylers: [{
-                    visibility: "on"
-                }, {
-                    lightness: -25
-                }, {
-                    saturation: -100
-                }]
-            }, {
-                featureType: "water",
-                elementType: "geometry",
-                stylers: [{
-                    hue: "#ffff00"
-                }, {
-                    lightness: -25
-                }, {
-                    saturation: -97
-                }]
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: point.lat, 
+                        lng: point.lng
+                    },
+                    icon: 'icon.png',
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                });
+
+                marker.addListener('click', function() {
+                    for (i in points) {
+                        points[i].infowindow.close()
+                    }
+                    infowindow.open(map, marker);
+                })
+
+                point.infowindow = infowindow
+                point.marker = marker
+
+                markers.push(marker)
+
+
+            }, timeout);
+        }
+
+        function clearMarkers() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
             }
-        ])
-
-        map.mapTypes.set('styled_map', googleMapStyles)
-        map.setMapTypeId('styled_map');
-
-        bounds = new google.maps.LatLngBounds()
-
-        for (i in points) {
-            addMarkerWithTimeout(points[i], i * 100)
-            bounds.extend(new google.maps.LatLng(points[i].lat, points[i].lng))
+            markers = [];
         }
-
-        map.fitBounds(bounds)
-        map.panToBounds(bounds) 
-
-      }
-
-      function addMarkerWithTimeout(point, timeout) {
-        window.setTimeout(function() {
-
-            // var contentString = point.desc;
-            var contentString = `
-                <div class="wpgmza_markerbox scrollFix">
-                    <p class="wpgmza_infowindow_title">${point.title}</p>
-                    <p class="wpgmza_infowindow_description">
-                    </p>
-                    <table style="max-width:350px;margin:0 auto" width="100%">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="https://ootb.lgd.io/wp-content/uploads/2019/08/White-Cap-Lofts-Chicago-1.jpg" style="max-width:100px" width="100%">
-                                    </img>
-                                </td>
-                                <td>
-                                    <p>${point.address}</p>
-                                    <p>
-                                        <a href="https://ootb.lgd.io/properties/white-cap-lofts/">
-                                            <strong>
-                                                LEASING INFORMATION →
-                                            </strong>
-                                        </a>
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            `;
-
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
-            var marker = new google.maps.Marker({
-                position: {
-                    lat: point.lat, 
-                    lng: point.lng
-                },
-                icon: 'icon.png',
-                map: map,
-                animation: google.maps.Animation.DROP,
-            });
-
-            marker.addListener('click', function() {
-                for (i in points) {
-                    points[i].infowindow.close()
-                }
-                infowindow.open(map, marker);
-            })
-
-            point.infowindow = infowindow
-            point.marker = marker
-
-            markers.push(marker)
-
-
-        }, timeout);
-      }
-
-      function clearMarkers() {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-        markers = [];
-      }
 
         var isInViewport = function (elem) {
             var bounding = elem.getBoundingClientRect();
@@ -844,7 +282,110 @@ td {
 
 
         })(jQuery)
- 
+
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 12,
+              maxZoom: 14,
+              disableDefaultUI: true, // a way to quickly hide all controls
+              center: { 
+                lat: 52.520, 
+                lng: 13.410
+               }
+            });
+
+            var googleMapStyles = new google.maps.StyledMapType([
+                {
+                    featureType: "landscape",
+                    stylers: [{
+                        saturation: -100
+                    }, {
+                        lightness: 65
+                    }, {
+                        visibility: "on"
+                    }]
+                }, {
+                    featureType: "poi",
+                    stylers: [{
+                        saturation: -100
+                    }, {
+                        lightness: 51
+                    }, {
+                        visibility: "simplified"
+                    }]
+                }, {
+                    featureType: "road.highway",
+                    stylers: [{
+                        saturation: -100
+                    }, {
+                        visibility: "simplified"
+                    }]
+                }, {
+                    featureType: "road.arterial",
+                    stylers: [{
+                        saturation: -100
+                    }, {
+                        lightness: 30
+                    }, {
+                        visibility: "on"
+                    }]
+                }, {
+                    featureType: "road.local",
+                    stylers: [{
+                        saturation: -100
+                    }, {
+                        lightness: 40
+                    }, {
+                        visibility: "on"
+                    }]
+                }, {
+                    featureType: "transit",
+                    stylers: [{
+                        saturation: -100
+                    }, {
+                        visibility: "simplified"
+                    }]
+                }, {
+                    featureType: "water",
+                    elementType: "labels",
+                    stylers: [{
+                        visibility: "on"
+                    }, {
+                        lightness: -25
+                    }, {
+                        saturation: -100
+                    }]
+                }, {
+                    featureType: "water",
+                    elementType: "geometry",
+                    stylers: [{
+                        hue: "#ffff00"
+                    }, {
+                        lightness: -25
+                    }, {
+                        saturation: -97
+                    }]
+                }
+            ])
+
+            map.mapTypes.set('styled_map', googleMapStyles)
+            map.setMapTypeId('styled_map');
+
+            axios.get('points.json').then(function(res) {
+                var points = res.data
+                bounds = new google.maps.LatLngBounds()
+
+                for (i in points) {
+                    addMarkerWithTimeout(points[i], i * 100)
+                    bounds.extend(new google.maps.LatLng(points[i].lat, points[i].lng))
+                }
+
+                map.fitBounds(bounds)
+                map.panToBounds(bounds) 
+            })
+
+        }
 
     </script>
     <script async defer
