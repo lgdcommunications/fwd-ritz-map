@@ -5,6 +5,9 @@
     <meta name="viewport" content= "width=device-width, initial-scale=1.0"> 
     <title>Ritz Map</title>
     <style>
+        *:focus {
+            outline: none;
+        }
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
@@ -111,7 +114,7 @@ td {
   <body>
     <!-- <div style="height: 5000px"></div> -->
     <div id="search">
-        <input oninput="search(this)" type="text" placeholder="search ex. wynwood">
+        <input oninput="search(this)" type="text" placeholder="loading points..." disabled="">
     </div>
     <div class="container" style="position: relative; height: inherit;">
         <div class="toggle">
@@ -126,14 +129,17 @@ td {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
 
-        var map;
-        var bounds;
-        var points = []
-        var markers = []
+        window.map;
+        window.bounds;
+        window.points = []
+        window.markers = []
 
-        function toggleMarker(markers, bool) {
+        function toggleMarker(markers) {
+            for (i in points) {
+                points[i].marker.setVisible(false)
+            }
             for (i in markers) {
-                markers[i].marker.setVisible(bool)
+                markers[i].marker.setVisible(true)
             }
         }
 
@@ -144,7 +150,6 @@ td {
             bounds = new google.maps.LatLngBounds()
 
             for (i in mapPoints) {
-                // toggleMarker(mapPoints, true)
                 bounds.extend(new google.maps.LatLng(mapPoints[i].lat, mapPoints[i].lng))
             }
 
@@ -155,6 +160,8 @@ td {
             if (mapPoints.length < 5) {
                 map.fitBounds(bounds)
             }
+
+            toggleMarker(mapPoints)
 
             // bounds = new google.maps.LatLngBounds()
             // toggleMarker(points, false)
@@ -167,26 +174,44 @@ td {
         }
 
         function search(el) {
+
             let value = el.value
-            var results = points.filter(a => 
-                a.keywords.toLowerCase().includes(value.toLowerCase())
-                // a.title.toLowerCase().includes(value.toLowerCase()) ||
+
+            var results = points.filter(a => {
+
+                if (a.keywords) {
+                    return a.keywords.toLowerCase().includes(value.toLowerCase())
+                }
+
+                // a.keywords.toLowerCase().includes(value.toLowerCase())
+                return a.title.toLowerCase().includes(value.toLowerCase())
                 // a.address.toLowerCase().includes(value.toLowerCase())
-            )
-            if (value.length <= 0) {
+            })
+            
+            if (results.length === 0 && value.length > 0) {
+                $('#search input').css('border', '1px solid red')
+            }
+
+            if (results.length === 0 || value.length === 0) {
                 centerMap(points)
                 return
             }
-            if (value.length < 3) {
-                return
-            }
-            if (results.length) {
+
+
+            if (value.length >= 3) {
+                $('#search input').css('border', 'none')
                 centerMap(results)
-                return
+                // return
             }
+
+            // if (results.length) {
+            //     centerMap(results)
+            //     return
+            // }
+
         }
 
-        function addMarkerWithTimeout(point, timeout) {
+        function addMarkerWithTimeout(point, timeout, index) {
             window.setTimeout(function() {
 
                 // var contentString = point.desc;
@@ -244,8 +269,12 @@ td {
 
                 markers.push(marker)
 
+                if (index >= points.length - 1) {
+                // console.log("done!")
+                    $('#search input').removeAttr('disabled').attr('placeholder', 'start typing...')
+                }
 
-            }, timeout);
+            }, timeout)
         }
 
         function clearMarkers() {
@@ -383,7 +412,7 @@ td {
                 bounds = new google.maps.LatLngBounds()
 
                 for (i in points) {
-                    addMarkerWithTimeout(points[i], i * 100)
+                    addMarkerWithTimeout(points[i], i * 100, i)
                     bounds.extend(new google.maps.LatLng(points[i].lat, points[i].lng))
                 }
 
