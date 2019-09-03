@@ -169,8 +169,9 @@ td {
         function search(el) {
             let value = el.value
             var results = points.filter(a => 
-                a.title.toLowerCase().includes(value.toLowerCase()) ||
-                a.address.toLowerCase().includes(value.toLowerCase())
+                a.keywords.toLowerCase().includes(value.toLowerCase())
+                // a.title.toLowerCase().includes(value.toLowerCase()) ||
+                // a.address.toLowerCase().includes(value.toLowerCase())
             )
             if (value.length <= 0) {
                 centerMap(points)
