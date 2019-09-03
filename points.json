@@ -1,11 +1,40 @@
 [
     {
         "title": "RICHLAND MALL",
-        "address": "Mansfield, OH, USA",
+        "address": "2209 Richland Mall Mansfield, OH 44906",
+        "image": "/wp-content/uploads/2019/08/Richland-Mall-1.jpg",
+        "link": "/properties/richland-mall/",
         "lat": 40.75839,
         "lng": -82.515447,
-        "keywords": "florida, miami, test, test"
+        "keywords": "richland, ohio, mansfield, mall, retail"
     },
+    {
+        "title": "HONEY CREEK MALL",
+        "address": "3401 South US Highway 41 Terre Haute, IN 47802",
+        "image": "/wp-content/uploads/2019/08/honey-creek-mall-1.jpg",
+        "link": "/properties/honey-creek-mall/",
+        "lat": 39.470202,
+        "lng": -87.386702,
+        "keywords": "honey, creek, indiana, terre haute, mall, retail"
+    },
+    {
+        "title": "VICTORY VILLAGE",
+        "address": "6610 Mooretown Road Williamsburg, VA 23188",
+        "image": "/wp-content/uploads/2019/08/Victory-Village-1.jpg",
+        "link": "/properties/victory-village/",
+        "lat": 37.270702,
+        "lng": -76.707457,
+        "keywords": "victory, village, williamsburg, virginia, retail"
+    },
+    {
+        "title": "WALNUT HILL PLAZA",
+        "address": "1500 Diamond Hill Road Woonsocket, RI 02895",
+        "image": "/wp-content/uploads/2019/08/Wallnut-Hill-Plaza-2.jpg",
+        "link": "/properties/walnut-hill-plaza/",
+        "lat": 42.002876,
+        "lng": -71.514784,
+        "keywords": "walnut hill, woonsocket, rhode island, retail"
+    },    
     {
         "map_id": "1",
         "marker_id": "3",
@@ -17,11 +46,7 @@
         "linkd": "",
         "lat": 39.470202,
         "lng": -87.386702,
-        "anim": "2",
-        "retina": "0",
-        "category": "0",
-        "infoopen": "0",
-        "other_data": ["0"]
+        "keywords": "2"
     },
     {
         "map_id": "1",
